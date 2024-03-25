@@ -4,7 +4,11 @@ import { useState } from "react";
 import { AlertMessage } from "./alert-message";
 import { FilePreview } from "./file-preview";
 
-export const UploadForm = () => {
+type UploadFormProps = {
+  uploadBtnClick: ()=>void
+}
+
+export const UploadForm = ({uploadBtnClick}: UploadFormProps) => {
   const [file, setFile] = useState<File | undefined>()
   const [error, setError] = useState<string | undefined>()
 
@@ -61,7 +65,7 @@ export const UploadForm = () => {
       </div>
       <AlertMessage message={error} />
       <FilePreview file={file} removeFile={()=>setFile(undefined)} />
-      <button disabled={!file} className="p-2 bg-primary text-white w-[30%] rounded-full mt-5 disabled:bg-blue-300">
+      <button disabled={!file} onClick={()=>uploadBtnClick()} className="p-2 bg-primary text-white w-[30%] rounded-full mt-5 disabled:bg-blue-300">
         Upload
       </button>
     </div>
